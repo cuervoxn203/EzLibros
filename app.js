@@ -20,7 +20,17 @@ app.use(session({
 app.set('view engine','ejs')
 
 app.get('/', (req, res) => {
-    res.render('index', {msg: 'Mensaje de prueba'})
+    if (req.session.loggedin){
+        res.render('index',{login: true, name: req.session.name})
+    }else{
+        res.render('index',{login: false})
+    }
+})
+
+app.get('/logout',(req,res) =>{
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
 })
 
 app.get('/login', (req, res) => {
@@ -29,31 +39,40 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register')
 })
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body
-    //Verificacion de credenciales
-})
-
 app.post('/register', async(req,res)=>
 {
     //async para encriptar/desencriptar contraseñas
-    console.log("Registro de usuario")
-    //Obtener datos con req.body
-    //let passwordHash = await bcryptjs.hash(pass,8) //determinar hash de la contraseña
-    //Realizar sentencia SQL insert //El password se guardaria con passwordHash
+    const { name, last_name, email, tel, pass } = req.body;
+    console.log(req.body)
+    let passwordHash = await bcryptjs.hash(pass,8) //determinar hash de la contraseña
+    client.query( 'INSERT INTO cliente (cliente_nombre, cliente_apellido, correo_electronico, contrasenia, telefono) VALUES ($1, $2, $3, $4, $5)', [name, last_name, email, passwordHash, tel],(error,result) =>{
+        if (error){
+            console.log(error)
+        }else{
+            res.send('Usuario registrado correctamente')
+        }
+    })
 })
 
 app.post('/auth',async (req,res)=>{
-    const usuario = req.body.user
-    const pass = req.body.pass
-    //let passwordHash = await bcryptjs.hash(pass,8)
-    if(usuario && pass){
-        console.log(usuario,pass)
-    }else{
-        console.log("Ingresa un usuario y contraseña")
-    }
-})
+    const {user,pass} = req.body
+    if(user && pass){
+        client.query('SELECT * FROM cliente WHERE correo_electronico = $1', [user], async (error, results) => {
+            //console.log(results)
+            if (error) {
+                console.error("Error en la consulta SQL:", error)
+            } else {
+                if (results.rows.length === 0 || !(await bcryptjs.compare(pass,results.rows[0].contrasenia)) ) {
+                    res.send("Usuario o contraseña incorrectos")
+                } else {
+                    req.session.name = results.rows[0].cliente_nombre
+                    req.session.loggedin = true
+                    res.send("Usuario aceptado")
+                    }
+                }
+            })
+        }
+    })
 
 app.listen(3000, () => {
     console.log('Servidor en funcionamiento en el puerto 3000')

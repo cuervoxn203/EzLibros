@@ -7,6 +7,11 @@
 </head>
 <body>
    <h1>Pagina de Inicio</h1>
-   <h2>Usuario conectado: <%= msg%></h2> 
+   <% if (login) { %>
+    <h1>Usuario conectado: <strong> <%= name %></strong></h1>
+    <a href="logout" class="a-logout">Cerrar Sesion</a>
+    <%}else{ %>
+        <a href="login" class="a-login">Iniciar Sesion</a>
+    <% } %>
 </body>
 </html>
