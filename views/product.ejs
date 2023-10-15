@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto</title>
+</head>
+<body>
+    <header>
+        <h1>Detalles del Producto</h1>
+    </header>
+    <main>
+        <section class="product-details">
+            <h2><%= product.titulo %></h2>
+            <% if (product.authors && product.authors.length > 0) { %>
+                <p>Autores: 
+                    <% for (let i = 0; i < product.authors.length; i++) { %>
+                        <%= product.authors[i].nombre_autor %>
+                        <% if (i < product.authors.length - 1) { %>, <% } %>
+                    <% } %>
+                </p>
+            <% } %>
+            <p>Descripción: <%= product.descripcion %></p>
+            <p>Precio: $<%= product.precio %></p>
+        </section>
+    </main>
+    <footer>
+        <a href="/">Volver a la página principal</a>
+    </footer>
+</body>
+</html>

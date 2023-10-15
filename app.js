@@ -7,6 +7,8 @@ const session = require('express-session') //Para los inicios de sesion
 dotenv.config({path: './env/.env'})
 const client = require('./server/conexion') // Importa la conexión de la base de datos
 
+const {getProductDetails, getFeaturedBooks} = require('./product')
+
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use('/resources',express.static('public'))
@@ -19,11 +21,17 @@ app.use(session({
 
 app.set('view engine','ejs')
 
-app.get('/', (req, res) => {
-    if (req.session.loggedin){
-        res.render('index',{login: true, name: req.session.name})
-    }else{
-        res.render('index',{login: false})
+app.get('/', async (req, res) => {
+    try {
+        let featuredBooks = await getFeaturedBooks()
+        if (req.session.loggedin) {
+            res.render('index', { login: true, name: req.session.name, featuredBooks })
+        } else {
+            res.render('index', { login: false, featuredBooks })
+        }
+    } catch (error) {
+        console.error('Error al obtener libros más vendidos:', error)
+        res.status(500).send('Error interno del servidor')
     }
 })
 
@@ -39,6 +47,20 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register')
 })
+
+app.get('/product/:productID', async (req, res) => {
+    const productID = req.params.productID;
+    const productDetails = await getProductDetails(productID);
+
+    if (productDetails) {
+        // Verificar si se obtuvieron detalles del producto
+        res.render('product', { product: productDetails });
+    } else {
+        // Producto no encontrado
+        res.status(404).render('product-not-found', { productID });
+    }
+});
+
 app.post('/register', async(req,res)=>
 {
     //async para encriptar/desencriptar contraseñas

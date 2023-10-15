@@ -6,12 +6,23 @@
     <title>EzLibros</title>
 </head>
 <body>
-   <h1>Pagina de Inicio</h1>
-   <% if (login) { %>
-    <h1>Usuario conectado: <strong> <%= name %></strong></h1>
-    <a href="logout" class="a-logout">Cerrar Sesion</a>
-    <%}else{ %>
-        <a href="login" class="a-login">Iniciar Sesion</a>
+    <h1>Página de Inicio</h1>
+    <% if (login) { %>
+        <h1>Usuario conectado: <strong><%= name %></strong></h1>
+        <a href="logout" class="a-logout">Cerrar Sesión</a>
+    <% } else { %>
+        <a href="login" class="a-login">Iniciar Sesión</a>
     <% } %>
+
+    <h2>Libros Destacados</h2>
+    <ul>
+        <% for (let i = 0; i < featuredBooks.length; i++) { %>
+            <li>
+                <a href="/product/<%= featuredBooks[i].libro_id %>"><%= featuredBooks[i].titulo %></a>
+            </li>
+        <% } %>
+    </ul>
+
+    <a href="/search" class="a-search">Buscar más libros</a>
 </body>
 </html>
