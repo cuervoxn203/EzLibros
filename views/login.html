@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Inicio</title>
+
+  <!--- CSS --->
+  <link rel="stylesheet" href="style/style2.css">
+  <style>
+    body {
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Inicio de Sesion</header>
+      <form action="index.html">
+        <input type="text" placeholder="Correo">
+        <input type="password" placeholder="Contraseña">
+        <a href="#">Olvidaste la contraseña?</a>
+        <input type="button" class="button" value="Iniciar" id="iniciarButton">
+      </form>
+      <script>
+        // Agregar un event listener al botón
+        document.getElementById("iniciarButton").addEventListener("click", function() {
+          // Redirigir a index.html
+          window.location.href = "index.html";
+        });
+      </script>
+
+      <div class="signup">
+        <span class="signup">No tienes una cuenta?
+         <label for="check">Registrate</label>
+        </span>
+      </div>
+    </div>
+    <div class="registration form">
+      <header>Registro</header>
+      <form action="index.html">
+        <input type="text" placeholder="Correo">
+        <input type="password" placeholder="Contraseña">
+        <input type="password" placeholder="Confirma contraseña">
+        <input type="button" class="button" value="Registrate" id="RegistroButton">
+      </form>
+      <script>
+        document.getElementById("RegistroButton").addEventListener("click", function() {
+          window.location.href = "index.html";
+        });
+      </script>
+      
+      <div class="signup">
+        <span class="signup">Tienes ya una cuenta?
+         <label for="check">Iniciar Sesion</label>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
