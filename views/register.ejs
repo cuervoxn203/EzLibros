@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,48 @@
                 <a href="/" class="button-cancel">Cancelar</a><input type="submit" class="button-save" value="save">
             </div>
         </form>
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/styles/style2.css">
+    <style>
+        body {
+          background-image: url('resources/styles/background.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        }
+      </style>
+    <title>Registro</title>
+</head>
+<body>
+    <div class="container">
+        <input type="checkbox" id="check">
+        <div class="login form">
+            <header>Registro de Usuario</header>
+            <form action="register" method="POST">
+                <input type="text" name="name" placeholder="Nombres" required>
+                <input type="text" name="last_name" placeholder="Apellidos" required>
+                <input type="text" name="email" placeholder="Correo Electrónico" required>
+                <input type="text" name="tel" placeholder="Teléfono" required>
+                <input type="password" name="pass" placeholder="Contraseña" required>
+                <div style="display: inline;">
+                    <a href="/" class="button-cancel">Cancelar</a>
+                    <input type="submit" class="button-save" value="Registro">
+                </div>
+            </form>
+            <div class="signup">
+                <span>¿Ya tienes una cuenta?
+                    <a href="/login" class="button-iniciar">Iniciar Sesión</a>
+                </span>
+            </div>
+        </div>
     </div>
 </body>
 </html>

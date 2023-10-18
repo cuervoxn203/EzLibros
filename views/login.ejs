@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,4 +17,44 @@
         <a href="register" class="button-register">Registrarse</a>
     </div>
 </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Inicio</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="resources/styles/style2.css">
+  <style>
+    body {
+      background-image: url('resources/styles/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Inicio de Sesión</header>
+      <form action="auth" method="POST">
+        <input type="text" name="user" placeholder="Correo" required>
+        <input type="password" name="pass" placeholder="Contraseña" required>
+        <a href="#">Olvidaste la contraseña?</a>
+        <input type="submit" class="button" value="Iniciar" id="iniciarButton">
+      </form>
+      <div class="signup">
+        <span class="signup">No tienes una cuenta?
+            <a href="register" class="button-register">Registrarse</a>
+        </span>
+      </div>
+</body>
 </html>
+
+
+

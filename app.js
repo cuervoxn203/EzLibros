@@ -22,6 +22,7 @@ app.use(session({
 app.set('view engine','ejs')
 
 app.get('/', async (req, res) => {
+    //La mayoria de lo que se encuentra aqui aun no se usa en la pagina
     try {
         let featuredBooks = await getFeaturedBooks()
         if (req.session.loggedin) {
@@ -42,7 +43,11 @@ app.get('/logout',(req,res) =>{
 })
 
 app.get('/login', (req, res) => {
-    res.render('login')
+    if (req.session.loggedin){
+        res.redirect('/') //Para que un usuario no pueda acceder al login si ya tiene la sesion iniciada
+        console.log('Sesion ya iniciada')//Deberia añadirse algo mas para indicarle al usuario que ya tiene la sesion iniciada
+    }else
+        res.render('login')
 })
 app.get('/register', (req, res) => {
     res.render('register')
@@ -78,6 +83,7 @@ app.post('/register', async(req,res)=>
 
 app.post('/auth',async (req,res)=>{
     const {user,pass} = req.body
+
     if(user && pass){
         client.query('SELECT * FROM cliente WHERE correo_electronico = $1', [user], async (error, results) => {
             //console.log(results)
